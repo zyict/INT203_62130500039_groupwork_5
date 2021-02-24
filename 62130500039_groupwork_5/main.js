@@ -11,7 +11,6 @@ const app = Vue.createApp({
                 image: './images/miyeon.jpg',
                 text: 'MIYEON',
                 like: false,
-                unlike: true,
                 show: true
 
             },
@@ -19,39 +18,34 @@ const app = Vue.createApp({
                 image: './images/minnie.jpg',
                 text: 'MINNIE',
                 like: false,
-                unlike: true,
                 show: true
             },
             {
                 image: './images/soojin.jpg',
                 text: 'SOOJIN',
                 like: false,
-                unlike: true,
                 show: true
             },
             {
                 image: './images/soyeon.jpg',
                 text: 'SOYEON',
                 like: false,
-                unlike: true,
                 show: true
             },
             {
                 image: './images/yuqi.jpg',
                 text: 'YUQI',
                 like: false,
-                unlike: true,
                 show: true
             },
             {
                 image: './images/shuhua.jpg',
                 text: 'SHUHUA',
                 like: false,
-                unlike: true,
                 show: true
             }
             ],
-            search: { clicked: false, notclick: true },
+            clicked: false,
             searchText: '',
             notFound: false,
             img: '',
@@ -61,18 +55,17 @@ const app = Vue.createApp({
     },
     methods: {
         toggleLike(index) {
-            this.memberList[index].like = !this.memberList[index].like
-            this.memberList[index].unlike = !this.memberList[index].unlike
+            this.memberList[index].like = !this.memberList[index].like  
         },
         showSearch() {
-            this.search.clicked = !this.search.clicked
-            this.search.notclick = !this.search.notclick
+            this.clicked = !this.clicked
             this.searchText = ''
             this.showMember();
         },
         showImg(index) {
             this.img = this.memberList[index].image
             this.imgShow = true
+            console.log(this.img)
         },
         closeImg(){
             this.imgShow = false

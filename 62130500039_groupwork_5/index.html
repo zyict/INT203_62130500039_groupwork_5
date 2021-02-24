@@ -29,21 +29,20 @@
       <div class="flex justify-start">
         <img class="ml-8 mt-4 w-20 h-12" src="./images/idle_logo.png">
         <div class="w-full pt-6 pr-8 space-x-2 flex justify-end">
-          <photo-search @search-member='searchMember'></photo-search>
-          <!-- <div>
-            <input @keyup="searchMember" v-show="search.clicked" type="text" placeholder="Enter member name..."
-              v-model="searchText" class="px-2 rounded bg-white">
+          
+          <div>
+            <photo-search @show-search="showSearch" @search-member="searchMember" @keyup="$emit('search-member')" v-show="clicked" ></photo-search>
+            <!-- <input @keyup="searchMember" v-show="clicked" type="text" placeholder="Enter member name..."
+              v-model="searchText" class="px-2 rounded bg-white"> -->
           </div>
           <div class="space-x-1">
-            <button @click="showSearch" v-show="search.notclick">
+            <button @click="showSearch" v-show="!clicked">
               <span class="material-icons" style="color: white;">
                 search
               </span>
             </button>
-            <button @click="showSearch" v-show="search.clicked" class="rounded text-white bg-red-500 w-16 h-6">
-              Cancel
-            </button>
-          </div> -->
+          </div>
+
           <div class="font-semibold text-white">
             Total Photo ({{ totalPhoto }})
           </div>
@@ -73,23 +72,6 @@
  
           <li v-show="member.show" v-for="(member, index) in memberList">
             <photo-item :member=member @toggle-like='toggleLike(index)' @show-img='showImg(index)'></photo-item>
-            
-            <!-- <img v-bind:src="member.image" class="h-72 w-48" :alt="member.text" @click="showImg(index)">
-            <p class="text-lg font-bold"> {{ member.text }} </p>
-            <div class="flex flex-row justify-start space-x-1">
-              <p>
-                <button @click="toggleLike(index)">
-                  <span class="material-icons" v-show="member.unlike">favorite_border</span>
-                </button>
-
-                <button @click="toggleLike(index)">
-                  <span class="material-icons" v-show="member.like">favorite</span>
-                </button>
-
-              </p>
-
-            </div> -->
-
           </li>
 
         </ul>
@@ -97,7 +79,7 @@
       </div>
 
       <div v-show="imgShow" class="bg-black bg-opacity-50 w-11/12 mt-10 h-auto flex justify-center absolute">
-        <photo-view @close-img="closeImg"></photo-view>
+        <photo-view @close-img="closeImg" :img='img'></photo-view>
         <!-- <button @click="closeImg">
           <span class="material-icons absolute top-0 right-0 text-5xl text-white">
             close

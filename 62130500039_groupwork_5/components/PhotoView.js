@@ -12,7 +12,6 @@ app.component('photo-view',{
   </div>`,
   data(){
       return{
-        img: '',
       }
   },
   methods:{
