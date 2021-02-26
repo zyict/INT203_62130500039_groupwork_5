@@ -8,11 +8,11 @@ app.component('photo-item',{
         <p class="text-lg font-bold"> {{ member.text }} </p>
         <div class="flex flex-row justify-start space-x-1">
             <p>
-                <button @click="toggleLike(index)">
+                <button @click="toggleLike(member.id)">
                     <span class="material-icons" v-show="!member.like">favorite_border</span>
                 </button>
 
-                <button @click="toggleLike(index)">
+                <button @click="toggleLike(member.id)">
                     <span class="material-icons" v-show="member.like">favorite</span>
                 </button>
 
@@ -26,13 +26,13 @@ app.component('photo-item',{
             }
         },
         methods:{
-            toggleLike(index) {
-                this.$emit('toggle-like',index)
+            toggleLike(id) {
+                this.$emit('toggle-like',id)
             },
-            showImg(index){
-                let iimg = this.img
-                this.$emit('show-img',index,iimg)
-                iimg =''
+            showImg(id){
+                let tmpimg = this.img
+                this.$emit('show-img',id,tmpimg)
+                tmpimg =''
             }
         }
 })

@@ -8,94 +8,69 @@ const app = Vue.createApp({
     data() {
         return {
             memberList: [{
+                id: 0,
                 image: './images/miyeon.jpg',
                 text: 'MIYEON',
                 like: false,
-                show: true
 
             },
             {
+                id: 1,
                 image: './images/minnie.jpg',
                 text: 'MINNIE',
                 like: false,
-                show: true
             },
             {
+                id: 2,
                 image: './images/soojin.jpg',
                 text: 'SOOJIN',
                 like: false,
-                show: true
             },
             {
+                id: 3,
                 image: './images/soyeon.jpg',
                 text: 'SOYEON',
                 like: false,
-                show: true
             },
             {
+                id: 4,
                 image: './images/yuqi.jpg',
                 text: 'YUQI',
                 like: false,
-                show: true
             },
             {
+                id: 5,
                 image: './images/shuhua.jpg',
                 text: 'SHUHUA',
                 like: false,
-                show: true
             }
             ],
             clicked: false,
             searchText: '',
             notFound: false,
             img: '',
-            imgShow: false
+            imgShow: false,
 
         }
     },
     methods: {
-        toggleLike(index) {
-            this.memberList[index].like = !this.memberList[index].like  
+        search_Text(text) {
+            this.searchText = text
+        },
+        toggleLike(id) {
+            this.memberList[id].like = !this.memberList[id].like
         },
         showSearch() {
             this.clicked = !this.clicked
             this.searchText = ''
-            this.showMember();
+
         },
-        showImg(index) {
-            this.img = this.memberList[index].image
+        showImg(id) {
+            this.img = this.memberList[id].image
             this.imgShow = true
-            console.log(this.img)
         },
-        closeImg(){
+        closeImg() {
             this.imgShow = false
-        },
-        searchMember(){
-            if(this.searchText){
-                for (let index = 0; index < this.memberList.length; index++) {
-                    const element = this.memberList[index];
-                    if(element.text !== this.searchText.toUpperCase()){
-                        element.show = false
-                        this.notFound = false
-                    }
-                    if(element.text.includes(this.searchText.toUpperCase())){
-                        element.show = true
-                        this.notFound = false
-                    }
-                    if(this.memberList.every(element => !element.show)){
-                        this.notFound = true
-                    }
-                }
-            }else{
-                this.showMember();
-            }
-        },
-        showMember(){
-            for (let index = 0; index < this.memberList.length; index++) {
-                this.memberList[index].show = true
-                this.notFound = false
-                
-            }
         }
 
     },
@@ -103,8 +78,24 @@ const app = Vue.createApp({
         countLiked() {
             return this.memberList.filter(t => t.like).length
         },
-        totalPhoto(){
+        totalPhoto() {
             return this.memberList.length
+        },
+        searchMember() {
+            if (this.searchText) {
+                if (this.memberList.filter(member => member.text.includes(this.searchText.toUpperCase())) == '') {
+                    this.notFound = true
+                }
+                else {
+                    this.notFound = false
+                    return this.memberList.filter(member => member.text.includes(this.searchText.toUpperCase()))
+                }
+            }
+            else {
+                this.notFound = false
+                return this.memberList
+            }
+
         }
     }
 })

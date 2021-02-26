@@ -31,9 +31,7 @@
         <div class="w-full pt-6 pr-8 space-x-2 flex justify-end">
           
           <div>
-            <photo-search @show-search="showSearch" @search-member="searchMember" @keyup="$emit('search-member')" v-show="clicked" ></photo-search>
-            <!-- <input @keyup="searchMember" v-show="clicked" type="text" placeholder="Enter member name..."
-              v-model="searchText" class="px-2 rounded bg-white"> -->
+            <photo-search @show-search="showSearch" @search-text="search_Text" v-show="clicked"></photo-search>
           </div>
           <div class="space-x-1">
             <button @click="showSearch" v-show="!clicked">
@@ -70,8 +68,8 @@
 
         <ul class="grid grid-cols-3 grid-rows-2 gap-x-28 gap-y-8 ml-10 mt-10 lg:grid-cols-3">
  
-          <li v-show="member.show" v-for="(member, index) in memberList">
-            <photo-item :member=member @toggle-like='toggleLike(index)' @show-img='showImg(index)'></photo-item>
+          <li v-for="(member, index) in searchMember">
+            <photo-item :member=member @toggle-like='toggleLike(member.id)' @show-img='showImg(index)'></photo-item>
           </li>
 
         </ul>
@@ -80,14 +78,6 @@
 
       <div v-show="imgShow" class="bg-black bg-opacity-50 w-11/12 mt-10 h-auto flex justify-center absolute">
         <photo-view @close-img="closeImg" :img='img'></photo-view>
-        <!-- <button @click="closeImg">
-          <span class="material-icons absolute top-0 right-0 text-5xl text-white">
-            close
-          </span>
-        </button>
-        <div class="md:py-40">
-          <img v-bind:src="img" class="item-center" width="400" height="600">
-        </div> -->
       </div>
 
     </div>
