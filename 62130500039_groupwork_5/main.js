@@ -1,9 +1,3 @@
-class Member {
-    constructor(text) {
-        this.text = text;
-    }
-}
-
 const app = Vue.createApp({
     data() {
         return {
